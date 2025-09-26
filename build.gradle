@@ -125,6 +125,9 @@ dependencies {
             transitive = false // We only care about the 1 annotation class
         }
     }
+
+    implementation "curse.maven:crafttweaker-239197:6669824"
+
     if (propertyBool('use_asset_mover')) {
         implementation "com.cleanroommc:assetmover:${propertyString('asset_mover_version')}"
     }
@@ -303,6 +306,10 @@ tasks.register('generateMixinJson') {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+
+    // 保留方法参数名（解决 ZenScript 显示 arg1/arg2 问题）
+    options.compilerArgs << "-parameters"
+
     if (propertyBool('use_modern_java_syntax')) {
         if (it.name in ['compileMcLauncherJava', 'compilePatchedMcJava']) {
             return
