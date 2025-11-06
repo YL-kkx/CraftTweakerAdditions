@@ -1,5 +1,6 @@
 package com.ylkkx.crtadd.utils;
 
+import com.teamderpy.shouldersurfing.client.ShoulderInstance;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.player.IPlayer;
@@ -7,6 +8,7 @@ import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import stanhebben.zenscript.annotations.ZenExpansion;
@@ -46,13 +48,15 @@ public class CrtAddIPlayer {
             return;
         }
 
-        // 校验参数合法性
-        if (viewType < 0 || viewType > 2) {
-            throw new IllegalArgumentException("视角类型必须为 0、1 或 2");
-        }
-
         // 设置视角
         mc.gameSettings.thirdPersonView = viewType;
+        // 越肩支持
+        if (Loader.isModLoaded("shouldersurfing")) {
+            if(viewType == 1) {
+                ShoulderInstance.getInstance().setShoulderSurfing(true);
+            }
+        }
+
     }
 
 }
