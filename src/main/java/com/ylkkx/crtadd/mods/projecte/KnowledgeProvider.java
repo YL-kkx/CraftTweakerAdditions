@@ -3,7 +3,6 @@ package com.ylkkx.crtadd.mods.projecte;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
-import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;

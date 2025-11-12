@@ -129,6 +129,8 @@ dependencies {
     implementation "curse.maven:crafttweaker-239197:6669824"
     implementation "curse.maven:projecte-226410:2702991"
     implementation "curse.maven:shoulder-surfing-reloaded-243190:5183202"
+    implementation "curse.maven:everlastingabilities-248353:2988576"
+    implementation "curse.maven:cyclops-core-232758:3159497"
 
     if (propertyBool('use_asset_mover')) {
         implementation "com.cleanroommc:assetmover:${propertyString('asset_mover_version')}"
