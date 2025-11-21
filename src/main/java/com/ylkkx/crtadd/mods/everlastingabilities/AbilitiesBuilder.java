@@ -32,6 +32,7 @@ public class AbilitiesBuilder {
     @ZenProperty
     public Functions.onChangedLevel onChangedLevel = null;
 
+
     public AbilitiesBuilder(String translationKey) {
         this.translationKey=translationKey;
     }

@@ -1,12 +1,8 @@
 package com.ylkkx.crtadd.mods.everlastingabilities;
 
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.api.player.IPlayer;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import org.cyclops.everlastingabilities.ability.AbilityTypeDefault;
-import org.cyclops.everlastingabilities.api.AbilityType;
 
 public class Abilities extends AbilityTypeDefault{
     String translationKey = null;
