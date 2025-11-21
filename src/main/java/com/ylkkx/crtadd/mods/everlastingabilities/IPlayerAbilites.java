@@ -12,16 +12,19 @@ import org.cyclops.everlastingabilities.api.IAbilityType;
 import org.cyclops.everlastingabilities.api.capability.IMutableAbilityStore;
 import org.cyclops.everlastingabilities.capability.MutableAbilityStoreConfig;
 import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenExpansion;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
-@ZenClass("mods.crtadd.everlastingabilities.Player")
+@ZenExpansion("crafttweaker.player.IPlayer")
 @ModOnly("everlastingabilities")
 public class IPlayerAbilites {
     //获取玩家是否有某项能力
     @ZenMethod
     public static boolean hasAbilites(IPlayer player, String abilitesname) {
-        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(abilitesname);
+        String fullAbilityName = "ability.abilities.everlastingabilities." + abilitesname + ".name";
+        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(fullAbilityName);
         if (abilityType == null) {
             return false;
         }
@@ -32,7 +35,8 @@ public class IPlayerAbilites {
     //获取玩家某项能力的等级
     @ZenMethod
     public static int getAbilitesLevel(IPlayer player, String abilitesname) {
-        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(abilitesname);
+        String fullAbilityName = "ability.abilities.everlastingabilities." + abilitesname + ".name";
+        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(fullAbilityName);
         if (abilityType == null) {
             return 0;
         }
@@ -43,7 +47,8 @@ public class IPlayerAbilites {
     //向玩家添加某项能力
     @ZenMethod
     public static void addAbilites(IPlayer player,String abilitesname ,int level,boolean modifyXp){
-        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(abilitesname);
+        String fullAbilityName = "ability.abilities.everlastingabilities." + abilitesname + ".name";
+        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(fullAbilityName);
         if (abilityType != null) {
             EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
             Ability newAbility = new Ability(abilityType, level);
@@ -53,7 +58,8 @@ public class IPlayerAbilites {
     //移除玩家某项能力
     @ZenMethod
     public static void removeAbilites(IPlayer player,String abilitesname ,int level,boolean modifyXp){
-        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(abilitesname);
+        String fullAbilityName = "ability.abilities.everlastingabilities." + abilitesname + ".name";
+        IAbilityType abilityType = AbilityTypeRegistry.getInstance().getAbilityType(fullAbilityName);
         if (abilityType != null) {
             EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
             Ability newAbility = new Ability(abilityType, level);
@@ -61,7 +67,7 @@ public class IPlayerAbilites {
         }
     }
     //获取玩家能力数量
-    @ZenMethod
+    @ZenGetter("getPlayerAbiliteCount")
     public static int getPlayerAbiliteCount(IPlayer player){
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
         IMutableAbilityStore abilityStore = mcPlayer.getCapability(MutableAbilityStoreConfig.CAPABILITY, null);
