@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, dependencies = "required-after:crafttweaker;after:projecte;after:shoulder-surfing-reloaded;after:everlastingabilities;after:cyclops-core")
+@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, dependencies = "required-after:crafttweaker;after:projecte;after:shoulder-surfing-reloaded;after:everlastingabilities;after:cyclops-core;after:nutrition")
 public class CraftTweakerAdditions {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

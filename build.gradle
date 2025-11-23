@@ -131,6 +131,7 @@ dependencies {
     implementation "curse.maven:shoulder-surfing-reloaded-243190:5183202"
     implementation "curse.maven:everlastingabilities-248353:2988576"
     implementation "curse.maven:cyclops-core-232758:3159497"
+    implementation "curse.maven:nutrition-unofficial-extended-life-964516:6095757"
 
     if (propertyBool('use_asset_mover')) {
         implementation "com.cleanroommc:assetmover:${propertyString('asset_mover_version')}"
