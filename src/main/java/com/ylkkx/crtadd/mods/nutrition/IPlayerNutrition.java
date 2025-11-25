@@ -25,19 +25,19 @@ public class IPlayerNutrition {
     //获取玩家某项营养的值
     @ZenMethod
     @SideOnly(Side.CLIENT)//客户端
-    public static Float getNutrition(IPlayer player, String nutritionname) {
+    public static float getNutrition(IPlayer player, String nutritionname) {
         Nutrient nutrient = NutrientList.getByName(nutritionname);
         if (nutrient == null) {
             return 0.0f;
         }
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
-        Float nutrientValue = mcPlayer.getCapability(NUTRITION_CAPABILITY, null).get(nutrient);
+        float nutrientValue = mcPlayer.getCapability(NUTRITION_CAPABILITY, null).get(nutrient);
         return nutrientValue;
     }
     //设置玩家某项营养的值
     @ZenMethod
     @SideOnly(Side.CLIENT)//客户端
-    public static void setNutrition(IPlayer player, String nutritionname, Float nutritionfloat){
+    public static void setNutrition(IPlayer player, String nutritionname, float nutritionfloat){
         Nutrient nutrient = NutrientList.getByName(nutritionname);
         if (nutrient != null) {
             EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
