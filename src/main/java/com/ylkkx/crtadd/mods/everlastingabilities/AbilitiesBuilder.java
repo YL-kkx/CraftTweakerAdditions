@@ -11,24 +11,25 @@ import stanhebben.zenscript.annotations.ZenProperty;
 @ZenRegister
 @ModOnly("everlastingabilities")
 public class AbilitiesBuilder {
+    //能力的ID
     @ZenProperty
     public String translationKey;
-
+    //能力的描述
     @ZenProperty
     public String unlocalizedDescription;
-
+    //能力的稀有度
     @ZenProperty
     public int rarity;
-
+    //能力的最大等级
     @ZenProperty
     public int maxLevel;
-
+    //能力每级所需的基础经验值
     @ZenProperty
     public int baseXpPerLevel;
-
+    //能力的tick事件处理函数
     @ZenProperty
     public Functions.onTick onTick = null;
-
+    //能力的等级变化事件处理函数
     @ZenProperty
     public Functions.onChangedLevel onChangedLevel = null;
 

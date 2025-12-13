@@ -13,7 +13,7 @@ import stanhebben.zenscript.annotations.ZenGetter;
 @ZenRegister
 @ZenExpansion("crafttweaker.player.IPlayer")
 public class ProjecteIPlayer {
-
+    //获取玩家的knowledge Capability
     @ZenGetter("knowledge")
     public static KnowledgeProvider getKnowledge(IPlayer player) {
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
