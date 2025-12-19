@@ -12,13 +12,11 @@ public class MCIVillage implements IVillage {
     private final Village village;
     private final EntityPlayer mcPlayer;
 
-
     public MCIVillage(Village village,EntityPlayer mcPlayer) {
         this.village = village;
         this.mcPlayer = mcPlayer;
 
     }
-
     @Override
     public int getPlayerReputation() {
         return village.getPlayerReputation(mcPlayer.getUniqueID());
@@ -69,4 +67,13 @@ public class MCIVillage implements IVillage {
         village.addOrRenewAgressor(CraftTweakerMC.getEntityLivingBase(entity));
     }
 
+    @Override
+    public IEntityLivingBase findNearestVillageAggressor(IEntityLivingBase entity) {
+        return CraftTweakerMC.getIEntityLivingBase(village.findNearestVillageAggressor(CraftTweakerMC.getEntityLivingBase(entity)));
+    }
+
+    @Override
+    public boolean isBlockPosWithinSqVillageRadius(IBlockPos blockPos) {
+        return village.isBlockPosWithinSqVillageRadius(CraftTweakerMC.getBlockPos(blockPos));
+    }
 }

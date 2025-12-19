@@ -1,18 +1,12 @@
 package com.ylkkx.crtadd.vanilla.village;
 
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.entity.IEntityLiving;
 import crafttweaker.api.entity.IEntityLivingBase;
-import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.world.IBlockPos;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenSetter;
-
-import java.util.UUID;
 
 @ZenClass("mods.crtadd.vanilla.IVillage")
 @ZenRegister
@@ -44,6 +38,13 @@ public interface IVillage {
     //检查指定位置是否存在有效门
     @ZenMethod
     boolean getExistedDoor(IBlockPos blockPos);
+    //向村庄添加袭击者
     @ZenMethod
     void addOrRenewAgressor(IEntityLivingBase entity);
+    //获取距离指定实体最近的村庄袭击者
+    @ZenMethod
+    IEntityLivingBase findNearestVillageAggressor(IEntityLivingBase entity);
+    //获取指定位置是否在村庄范围
+    @ZenMethod
+    boolean isBlockPosWithinSqVillageRadius(IBlockPos blockPos);
 }
