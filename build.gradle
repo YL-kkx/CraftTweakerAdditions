@@ -132,6 +132,10 @@ dependencies {
     implementation "curse.maven:everlastingabilities-248353:2988576"
     implementation "curse.maven:cyclops-core-232758:3159497"
     implementation "curse.maven:nutrition-unofficial-extended-life-964516:6095757"
+    implementation "curse.maven:tinkers-planner-antique-1535236:8064354"
+    implementation "curse.maven:constructs-armory-287683:3174535"
+    implementation "curse.maven:tinkers-construct-74072:2902483"
+    implementation "curse.maven:mantle-74924:2713386"
 
     if (propertyBool('use_asset_mover')) {
         implementation "com.cleanroommc:assetmover:${propertyString('asset_mover_version')}"
