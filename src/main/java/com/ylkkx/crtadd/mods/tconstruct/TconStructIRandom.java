@@ -13,6 +13,7 @@ import java.util.Random;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -66,6 +67,38 @@ public class TconStructIRandom {
             result.addAll(getToolTargets());
         } else if ("armor".equalsIgnoreCase(type)) {
             result.addAll(getArmorTargets());
+        } else {
+            // 根据工具ID查找，支持忽略大小写
+            result.addAll(getTargetsById(type));
+        }
+        return result;
+    }
+
+    /**
+     * 根据工具ID查找目标（忽略大小写），参考 PlannerRegistryJsonExporter.registryName()
+     * 支持带命名空间的ID如 "tconstruct:rapier" 或纯ID如 "rapier"
+     */
+    private static List<Item> getTargetsById(String id) {
+        List<Item> result = new ArrayList<>();
+        if (id == null || id.isEmpty()) {
+            return result;
+        }
+        String searchId = id.toLowerCase(java.util.Locale.ROOT);
+        for (Item item : Item.REGISTRY) {
+            if (item == null) {
+                continue;
+            }
+            ResourceLocation registryName = item.getRegistryName();
+            if (registryName == null) {
+                continue;
+            }
+            String itemId = registryName.toString().toLowerCase(java.util.Locale.ROOT);
+            // 完全匹配或纯ID部分匹配
+            if (itemId.equals(searchId) || itemId.endsWith(":" + searchId) || itemId.equals(searchId.replace(":", ""))) {
+                if (item instanceof ToolCore || item instanceof ArmorCore) {
+                    result.add(item);
+                }
+            }
         }
         return result;
     }
