@@ -58,6 +58,75 @@ public class TconStructIRandom {
         return CraftTweakerMC.getIItemStack(result);
     }
 
+    /**
+     * 创建新的统计过滤器构建器。
+     *
+     * @return StatFilterBuilder 实例
+     */
+    @ZenMethod
+    public static StatFilterBuilder createStatFilter() {
+        return new StatFilterBuilder();
+    }
+
+    /**
+     * 带过滤约束的随机装备生成。
+     *
+     * @param type   装备类型："all" / "tool" / "armor" / 具体ID
+     * @param filter 统计过滤器构建器
+     * @return 生成的装备，失败返回 null
+     */
+    @ZenMethod
+    public static IItemStack Random(String type, StatFilterBuilder filter) {
+        if (filter == null) {
+            return Random(type);
+        }
+        try {
+            // 1. 获取候选池
+            List<Item> targets = getTargets(type);
+            if (targets.isEmpty()) {
+                return null;
+            }
+
+            // 2. 约束候选池
+            targets = filter.filterTargets(targets);
+            if (targets.isEmpty()) {
+                return null;
+            }
+
+            // 3. 随机选择目标装备
+            Item target = targets.get(RANDOM.nextInt(targets.size()));
+
+            // 4. 构建过滤后的材料列表
+            List<Material> materials = filter.buildFilteredMaterials(target);
+
+            // 5. 构建基础装备
+            ItemStack result = buildItem(target, materials);
+            if (result.isEmpty()) {
+                return null;
+            }
+
+            // 6. 应用固有强化（白名单优先）
+            result = filter.applyFixedModifiers(result, target);
+            if (result.isEmpty()) {
+                return null;
+            }
+
+            // 7. 应用随机强化（考虑过滤约束）
+            result = filter.addFilteredRandomModifiers(result, target);
+            if (result.isEmpty()) {
+                return null;
+            }
+
+            // 8. 注入额外词条
+            result = filter.applyExtraTraits(result);
+
+            // 9. 返回 IItemStack
+            return CraftTweakerMC.getIItemStack(result);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private static List<Item> getTargets(String type) {
         List<Item> result = new ArrayList<>();
         if ("all".equalsIgnoreCase(type)) {
@@ -152,7 +221,7 @@ public class TconStructIRandom {
     /**
      * 获取可用于指定零件类型的材料列表，参考 PlannerScreen.getUsableMaterials()
      */
-    private static List<Material> getUsableMaterials(PartMaterialType partType) {
+    static List<Material> getUsableMaterials(PartMaterialType partType) {
         List<Material> materials = new ArrayList<>();
         for (Material material : TinkerRegistry.getAllMaterials()) {
             if (partType != null && partType.isValidMaterial(material)) {
@@ -260,7 +329,7 @@ public class TconStructIRandom {
      * - ToolPlannerTarget.getAvailableModifiers()
      * - ConArmClientCompat.ArmorPlannerTarget.getAvailableModifiers()
      */
-    private static Map<String, IModifier> getAvailableModifiersMap(Item target) {
+    static Map<String, IModifier> getAvailableModifiersMap(Item target) {
         Map<String, IModifier> modifiers = new LinkedHashMap<>();
         if (target instanceof ToolCore) {
             for (IModifier modifier : TinkerRegistry.getAllModifiers()) {
@@ -365,7 +434,7 @@ public class TconStructIRandom {
     /**
      * 检查 modifier 是否可以应用到当前工具
      */
-    private static boolean canApplyModifier(ItemStack stack, IModifier modifier) {
+    static boolean canApplyModifier(ItemStack stack, IModifier modifier) {
         if (stack.isEmpty() || modifier == null) {
             return false;
         }
@@ -381,7 +450,7 @@ public class TconStructIRandom {
     /**
      * 重建 ItemStack，参考 PlannerBlueprint.rebuildPreview()
      */
-    private static ItemStack rebuildStack(ItemStack stack, Item target) {
+    static ItemStack rebuildStack(ItemStack stack, Item target) {
         if (stack.isEmpty()) {
             return stack;
         }
