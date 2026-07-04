@@ -1,5 +1,6 @@
 package com.ylkkx.crtadd;
 
+import com.ylkkx.crtadd.network.PacketHandler;
 import com.ylkkx.crtadd.vanilla.event.MCClientChatReceivedEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -15,7 +16,7 @@ public class CraftTweakerAdditions {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ClientChatEventHandler());
-        // 检查ProjectE模组并注册相关事件
+        PacketHandler.register();
         if (Loader.isModLoaded("projecte")) {
             MinecraftForge.EVENT_BUS.register(EventManager.EventHandler.class);
         }

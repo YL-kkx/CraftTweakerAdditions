@@ -20,7 +20,7 @@ public class ProjecteIPlayer {
         if (mcPlayer != null) {
             IKnowledgeProvider provider = mcPlayer.getCapability(ProjectEAPI.KNOWLEDGE_CAPABILITY, null);
             if (provider != null) {
-                return new MCKnowledgeProvider(provider);
+                return new MCKnowledgeProvider(provider, mcPlayer);
             }
         }
         return null;
